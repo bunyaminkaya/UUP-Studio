@@ -58,22 +58,35 @@ def svg_icon(name: str, color: str, size: int = 18, stroke: float = 2.0) -> QIco
     return QIcon(svg_pixmap(name, color, size, stroke))
 
 
-def app_icon() -> QIcon:
-    size = 256
+ICON_SIZES = (16, 20, 24, 32, 40, 48, 64, 128, 256)
+
+
+def icon_pixmap(size: int) -> QPixmap:
+    """Uygulama simgesini istenen boyutta vektörden çizer (küçük boyutlar bulanıklaşmasın)."""
     pm = QPixmap(size, size)
     pm.fill(Qt.GlobalColor.transparent)
     p = QPainter(pm)
     p.setRenderHint(QPainter.RenderHint.Antialiasing)
     p.setPen(Qt.PenStyle.NoPen)
     p.setBrush(QColor("#3CC7B0"))
-    p.drawRoundedRect(QRectF(16, 16, size - 32, size - 32), 56, 56)
+    margin = size * 0.0625
+    p.drawRoundedRect(QRectF(margin, margin, size - 2 * margin, size - 2 * margin), size * 0.22, size * 0.22)
     p.end()
-    glyph = svg_pixmap("logo", "#06211D", 140, 2.6)
+    glyph_size = max(8, round(size * 0.55))
+    glyph = svg_pixmap("logo", "#06211D", glyph_size, 2.6)
     painter = QPainter(pm)
-    painter.drawPixmap(58, 58, glyph.scaled(140, 140, Qt.AspectRatioMode.KeepAspectRatio,
-                                            Qt.TransformationMode.SmoothTransformation))
+    painter.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform)
+    off = (size - glyph.width() / glyph.devicePixelRatio()) / 2
+    painter.drawPixmap(round(off), round(off), glyph)
     painter.end()
-    return QIcon(pm)
+    return pm
+
+
+def app_icon() -> QIcon:
+    icon = QIcon()
+    for size in ICON_SIZES:
+        icon.addPixmap(icon_pixmap(size))
+    return icon
 
 
 def repolish(widget: QWidget) -> None:

@@ -1,5 +1,8 @@
 # Değişiklik notları
 
+## 0.3.1 (beta)
+- Görev çubuğu/Başlat simgesi düzeltildi: simge artık 16-256 px arası 9 boyutlu, PNG sıkıştırmalı ICO (önceden yalnızca 256 px olduğu için genel simge görünüyordu).
+
 ## 0.3.0 (beta)
 - Dönüştürme 5 alt aşamaya bölündü (Hazırlık, install.wim, Güncelleme, Kayıt + WinRE, Boot + ISO); toplam 9 adım.
 - Her aşamanın başlangıç saati günlüğe yazılır, iş bitince "Aşama süreleri" özeti eklenir.

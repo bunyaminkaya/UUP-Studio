@@ -9,7 +9,7 @@ from pathlib import Path
 
 APP_NAME = "UUP Studio"
 APP_ID = "UUPStudio"
-APP_VERSION = "0.3.0"
+APP_VERSION = "0.3.1"
 DEVELOPER = "Bünyamin KAYA"
 WEBSITE = "https://bunyaminkaya.com"
 
